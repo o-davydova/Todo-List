@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <div class="row">
+    <div class="col">
+      <h1>TODO List</h1>
+    </div>
+    <div class="col-1">
+      <a class="btn btn-primary" href="{% url 'todo:task-create' %}">Add task</a>
+    </div>
+  </div>
+  <br>
+
+  {% if task_list %}
+    {% for task in task_list %}
+      <div class="row">
+        <div class="col"><p>
+          <strong>
+          {{ task.content }}
+          {% if task.is_done %}
+            <span class="text-success">Done</span>
+          {% else %}
+            <span class="text-danger">Not done</span>
+          {% endif %}
+          </strong>
+          </p>
+          <p>Created: {{ task.created_date }}</p>
+          <p class="text-muted">
+            Tags: {% for tag in task.tags.all %} {{ tag }}{% endfor %}
+            <a href="{% url 'todo:task-update' pk=task.pk %}">Update</a>
+            <a href="{% url 'todo:task-delete' pk=task.pk %}">Delete</a>
+          </p>
+        </div>
+        <div class="col-1">
+          {% if task.is_done %}
+            <a class="btn btn-secondary" href="{% url 'todo:toggle-task-complete' pk=task.id %}">Undo</a>
+          {% else %}
+            <a class="btn btn-success" href="{% url 'todo:toggle-task-complete' pk=task.id %}">Complete</a>
+          {% endif %}
+        </div>
+      </div>
+      <hr>
+    {% endfor %}
+  {% else %}
+    <p>There are no tasks yet.</p>
+  {% endif %}
+{% endblock %}
