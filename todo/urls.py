@@ -3,13 +3,15 @@ from django.urls import path
 from todo.views import (
     TaskListView,
     IndexView,
-    TagListView
+    TagListView,
+    TaskCreateView
 )
 
 
 urlpatterns = [
     path("", IndexView.as_view(), name="index"),
     path("tasks/", TaskListView.as_view(), name="task-list"),
+    path("tasks/create/", TaskCreateView.as_view(), name="task-create"),
     path("tags/", TagListView.as_view(), name="tag-list"),
 ]
 
