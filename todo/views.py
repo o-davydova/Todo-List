@@ -2,7 +2,7 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.views import generic
 
-from todo.models import Task
+from todo.models import Task, Tag
 
 
 class IndexView(generic.View):
@@ -13,3 +13,6 @@ class IndexView(generic.View):
 class TaskListView(generic.ListView):
     model = Task
 
+
+class TagListView(generic.ListView):
+    model = Tag
