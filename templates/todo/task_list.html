@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <div class="row">
+    <div class="col">
+      <h1>TODO List</h1>
+    </div>
+    <div class="col-1">
+      <a class="btn btn-primary" href="#">Add task</a>
+    </div>
+  </div>
+  <br>
+
+  {% if task_list %}
+    {% for task in task_list %}
+      <div class="row">
+        <div class="col"><p>
+          <strong>
+          {{ task.content }}
+          {% if task.is_done %}
+            <span class="text-success">Done</span>
+          {% else %}
+            <span class="text-danger">Not done</span>
+          {% endif %}
+          </strong>
+          </p>
+          <p>Created: {{ task.created_date }}</p>
+          <p class="text-muted">
+            Tags: {% for tag in task.tags.all %} {{ tag }}{% endfor %}
+            <a href="#">Update</a>
+            <a href="#">Delete</a>
+          </p>
+        </div>
+        <div class="col-1">
+          {% if task.is_done %}
+            <a class="btn btn-secondary" href="#">Undo</a>
+          {% else %}
+            <a class="btn btn-success" href="#">Complete</a>
+          {% endif %}
+        </div>
+      </div>
+      <hr>
+    {% endfor %}
+  {% else %}
+    <p>There are no tasks yet.</p>
+  {% endif %}
+{% endblock %}
