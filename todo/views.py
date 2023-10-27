@@ -1,3 +1,15 @@
-from django.shortcuts import render
+from django.http import HttpResponseRedirect
+from django.urls import reverse_lazy
+from django.views import generic
 
-# Create your views here.
+from todo.models import Task
+
+
+class IndexView(generic.View):
+    def get(self, request):
+        return HttpResponseRedirect(reverse_lazy("todo:task-list"))
+
+
+class TaskListView(generic.ListView):
+    model = Task
+
