@@ -34,9 +34,9 @@
         </div>
         <div class="col-1">
           {% if task.is_done %}
-            <a class="btn btn-secondary" href="#">Undo</a>
+            <a class="btn btn-secondary" href="{% url 'todo:toggle-task-complete' pk=task.id %}">Undo</a>
           {% else %}
-            <a class="btn btn-success" href="#">Complete</a>
+            <a class="btn btn-success" href="{% url 'todo:toggle-task-complete' pk=task.id %}">Complete</a>
           {% endif %}
         </div>
       </div>
